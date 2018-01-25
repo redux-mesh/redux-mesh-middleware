@@ -20,5 +20,8 @@
   "homepage": "https://github.com/redux-mesh/redux-mesh-middleware#readme",
   "dependencies": {
     "typescript": "^2.6.2"
+  },
+  "devDependencies": {
+    "redux": "^3.7.2"
   }
 }
