@@ -1,0 +1,2 @@
+export const BUTTON_1_CLICK = 'BUTTON_1_CLICK';
+export const BUTTON_2_CLICK = 'BUTTON_2_CLICK';
