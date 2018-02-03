@@ -1,7 +1,10 @@
 const {HotModuleReplacementPlugin, NoEmitOnErrorsPlugin} = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const {join} = require('path');
 
 const port = 8080;
+
+console.log(__dirname);
 
 module.exports = {
     entry: [
@@ -22,8 +25,8 @@ module.exports = {
             },
             {
                 test: /\.tsx?$/,
-                loaders: ['awesome-typescript-loader?useBabel=true&useWebpackText=true&useCache=true&configFileName=demo/tsconfig.json'],
-                include: __dirname
+                loaders: ['awesome-typescript-loader?useBabel=true&useWebpackText=true&configFileName=demo/tsconfig.json'],
+                include: [__dirname, join(__dirname, '..')]
             },
             {
                 test: /\.json$/,
@@ -46,7 +49,7 @@ module.exports = {
 
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx', '.css'],
-        modules: ['demo', 'app', 'node_modules', 'webpack', 'browser', 'web', 'browserify', 'main']
+        modules: ['app', 'node_modules', 'webpack', 'browser', 'web', 'browserify', 'main']
     },
 
     externals: []
