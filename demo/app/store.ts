@@ -7,7 +7,7 @@ const logger = createLogger({
     collapsed: false
 });
 
-const enhancer = compose(applyMiddleware(logger, reduxMesh));
+const enhancer = compose(applyMiddleware(logger, reduxMesh({token: 'abc123'})));
 
 export function configureStore(initialState) {
     return createStore(rootReducer, initialState, enhancer);
