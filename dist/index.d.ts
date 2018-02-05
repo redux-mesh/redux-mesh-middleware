@@ -1,2 +1,3 @@
 import { Middleware } from 'redux';
-export declare const reduxMesh: Middleware;
+import { IOptions } from './lib/IOptions';
+export declare const reduxMesh: (options: IOptions) => Middleware;
