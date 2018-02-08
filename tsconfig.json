@@ -5,7 +5,12 @@
     "module": "commonjs",
     "noImplicitAny": false,
     "sourceMap": true,
-    "removeComments": false
+    "removeComments": false,
+    "lib": [
+      "dom",
+      "es6",
+      "es2015"
+    ]
   },
   "exclude": [
     "node_modules"
