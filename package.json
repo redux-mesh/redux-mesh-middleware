@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/redux-mesh/redux-mesh-middleware#readme",
   "dependencies": {
+    "@types/es6-promise": "^3.3.0",
     "typescript": "^2.6.2"
   },
   "devDependencies": {

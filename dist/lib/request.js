@@ -34,35 +34,51 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
 exports.__esModule = true;
-var request_1 = require("./lib/request");
-exports.reduxMesh = function (options) {
-    var url = options.url ? options.url : 'http://localhost:3000';
-    var session;
-    try {
-        (function () { return __awaiter(_this, void 0, void 0, function () {
+var Request = /** @class */ (function () {
+    function Request() {
+    }
+    Request.prototype.createSession = function (baseUrl, token) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, request_1.request.createSession(url, options.token)];
-                    case 1:
-                        session = _a.sent();
-                        return [2 /*return*/];
-                }
+                return [2 /*return*/, new Promise(function (resolve) { return __awaiter(_this, void 0, void 0, function () {
+                        var xhr;
+                        return __generator(this, function (_a) {
+                            xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+                            xhr.open('POST', baseUrl + "/api/sessions");
+                            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                            xhr.setRequestHeader('Authorization', "Bearer " + token);
+                            xhr.onreadystatechange = function () {
+                                if (xhr.readyState > 3 && xhr.status == 200) {
+                                    resolve(JSON.parse(xhr.responseText));
+                                }
+                            };
+                            xhr.send();
+                            return [2 /*return*/];
+                        });
+                    }); })];
             });
-        }); })();
-    }
-    catch (ex) {
-        console.error(ex);
-    }
-    var mesh = function (store) { return function (next) { return function (action) {
-        var timestamp = new Date().getTime();
-        var eventType = action.type;
-        var event = { timestamp: timestamp, sessionId: session.id, eventType: eventType, event: action, store: store.getState() };
-        if (session) {
-            request_1.request.sendEvent(url, options.token, event);
-        }
-        return next(action);
-    }; }; };
-    return mesh;
-};
+        });
+    };
+    Request.prototype.sendEvent = function (url, token, event) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve) {
+                        var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+                        xhr.open('POST', url + "/api/events");
+                        xhr.setRequestHeader('Content-Type', 'application/json');
+                        xhr.setRequestHeader('Authorization', "Bearer " + token);
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState > 3 && xhr.status == 200) {
+                                resolve(JSON.parse(xhr.responseText));
+                            }
+                        };
+                        xhr.send(JSON.stringify(event));
+                    })];
+            });
+        });
+    };
+    return Request;
+}());
+exports.request = new Request();
